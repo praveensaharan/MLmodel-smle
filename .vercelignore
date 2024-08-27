@@ -1,0 +1,17 @@
+# Ignore local build artifacts
+
+build/
+dist/
+\*.log
+
+# Ignore Python cache files
+
+**pycache**/
+_.pyc
+_.pyo
+
+# Ignore virtual environment
+
+env/
+.vscode
+Dockerfile
