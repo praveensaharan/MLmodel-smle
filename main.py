@@ -55,21 +55,29 @@ def predict_price(data: BankNote):
         NumPackages = data['NumPackages']
         SpecialHandling = data['SpecialHandling']
         PackageWeight = data['PackageWeight']
-
-        # Validate ShipmentType
+  # Validate ShipmentType
         valid_shipment_types = [1, 2, 3]
         if ShipmentType not in valid_shipment_types:
-            raise HTTPException(status_code=400, detail=f"Invalid ShipmentType: {
-                                ShipmentType}. Must be one of {valid_shipment_types}")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid ShipmentType: {
+                    ShipmentType}. Must be one of {valid_shipment_types}"
+            )
 
         # Validate SpecialHandling
         valid_special_handling = [0, 1]
         if SpecialHandling not in valid_special_handling:
-            raise HTTPException(status_code=400, detail=f"Invalid SpecialHandling: {
-                                SpecialHandling}. Must be one of {valid_special_handling}")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid SpecialHandling: {
+                    SpecialHandling}. Must be one of {valid_special_handling}"
+            )
+
         if NumPackages <= 0:
             raise HTTPException(
-                status_code=400, detail="NumPackages must be greater than 0")
+                status_code=400,
+                detail="NumPackages must be greater than 0"
+            )
 
         input_data = np.asarray(
             [Distance, ShipmentType, NumPackages, SpecialHandling, PackageWeight])
@@ -82,7 +90,3 @@ def predict_price(data: BankNote):
         return {'prediction': prediction.tolist()}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port=8000)
